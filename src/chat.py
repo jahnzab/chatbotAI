@@ -90,14 +90,14 @@ genai.configure(api_key=API_KEY)
 @app.post("/generate/")
 async def ask_gemini(request: ChatRequest):
     try:
-        engine.say(f"You asked: {request.question}")
+        engine.say(f": {request.question}")
         engine.runAndWait()
         
         model = genai.GenerativeModel("gemini-1.5-pro")
         response = model.generate_content(request.question)
-        answer = response.text if response.text else "No response from Gemini."
+        answer = response.text if response.text else "No response from chatbot."
         
-        engine.say(f"Jahan's chatbot says: {answer}")
+        engine.say(f"Jahans chatbot says: {answer}")
         engine.runAndWait()
         return {"answer": answer}
     except Exception as e:
