@@ -16,7 +16,7 @@ const Llamabot = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  // Speech Recognition Setup with Proper Check
+  // Speech Recognition Setup
   let recognition = null;
   if ("SpeechRecognition" in window || "webkitSpeechRecognition" in window) {
     const SpeechRecognition =
@@ -46,8 +46,8 @@ const Llamabot = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/generate/",
-        { question: userInput }, // Corrected request format
+        "/generate/", // Relative path
+        { question: userInput },
         {
           headers: {
             "Content-Type": "application/json",
@@ -55,7 +55,7 @@ const Llamabot = () => {
         }
       );
 
-      const botResponse = response.data.answer; // Corrected response format
+      const botResponse = response.data.answer;
       setChatLog([...newChatLog, { role: "assistant", content: botResponse }]);
     } catch (error) {
       console.error("Error communicating with FastAPI:", error);
@@ -87,7 +87,6 @@ const Llamabot = () => {
 
   return (
     <div style={{ display: "flex" }}>
-      {/* Left side container */}
       <div
         style={{
           width: "550px",
