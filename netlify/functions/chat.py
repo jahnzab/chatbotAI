@@ -116,8 +116,15 @@ import google.generativeai as genai
 
 # Initialize FastAPI app
 app = FastAPI()
-
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allow all origins or specify your frontend URL (like https://your-react-app.netlify.app)
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 # Configure Gemini API
+          
 API_KEY = "AIzaSyDNLSt5dYV_SYR9-_8vvTA1gf26ytqgZN8"  # Replace with your actual API key
 genai.configure(api_key=API_KEY)
 

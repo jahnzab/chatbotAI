@@ -38,15 +38,16 @@ const Llamabot = () => {
   // Send message to FastAPI
   const handleSendMessage = async () => {
     if (!userInput.trim()) return;
-
+  
     const newChatLog = [...chatLog, { role: "user", content: userInput }];
     setChatLog(newChatLog);
     setUserInput("");
     setIsTyping(true);
-
+  
     try {
+      // Update this URL to point to the Netlify function (which serves your FastAPI code)
       const response = await axios.post(
-        "/generate/", // Relative path
+        "/.netlify/functions/chat/generate/",  // The URL for your Netlify function
         { question: userInput },
         {
           headers: {
@@ -54,8 +55,8 @@ const Llamabot = () => {
           },
         }
       );
-
-      const botResponse = response.data.answer;
+  
+      const botResponse = response.data.answer; // Correct response format
       setChatLog([...newChatLog, { role: "assistant", content: botResponse }]);
     } catch (error) {
       console.error("Error communicating with FastAPI:", error);
@@ -68,6 +69,7 @@ const Llamabot = () => {
       scrollToBottom();
     }
   };
+  
 
   // Handle Enter key press
   const handleKeyDown = (e) => {
