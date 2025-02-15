@@ -32,12 +32,8 @@
 
 // export default App;
 
-
-import React, { useState, useEffect } from "react";
-import Llamabot from "./Llamabot";
-// You can import other components like Whisper, ImageCaptioning, etc.
-// import Whisper from "./Whisper";
-// import ImageCaptioning from "./ImageCaptioning";
+import React, { useState } from "react"; 
+import Llamabot from "./Llamabot"; // Correct usage of Llamabot import
 import "./App.css";
 
 function App() {
@@ -82,24 +78,8 @@ function App() {
           onClick={() => handleIntentChange("llama")}
           className="custom-button llama"
         >
-          Use Llama (Chatbot)
+          Use Chatbot (Try)
         </button>
-
-        {/* Button for Whisper Intent (future integration) */}
-        {/* <button
-          onClick={() => handleIntentChange("whisper")}
-          className="custom-button whisper"
-        >
-          Whisper (Speech-to-Text)
-        </button> */}
-
-        {/* Button for Image Captioning Intent (future integration) */}
-        {/* <button
-          onClick={() => handleIntentChange("image-captioning")}
-          className="custom-button image-captioning"
-        >
-          Image Captioning
-        </button> */}
       </div>
 
       {/* Render Llama Bot if 'llama' intent is selected */}
@@ -119,12 +99,12 @@ function App() {
           {response && <p className="response">{response}</p>}
         </div>
       )}
-
-      {/* You can add conditional rendering for other intents like Whisper, etc. */}
-      {/* {selectedIntent === "whisper" && <Whisper />} */}
-      {/* {selectedIntent === "image-captioning" && <ImageCaptioning />} */}
+      
+      {/* Make sure Llamabot is used conditionally when selectedIntent is "llama" */}
+      {selectedIntent === "llama" && <Llamabot />}
     </div>
   );
 }
 
 export default App;
+
