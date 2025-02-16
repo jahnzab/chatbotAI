@@ -46,10 +46,11 @@ const Llamabot = () => {
 
     try {
       const response = await axios.post(
-        "https://your-app.fly.dev/generate/", 
+        "/api/generate/", 
         { question: userInput },
         { headers: { "Content-Type": "application/json" } }
       );
+      
       
       const botResponse = response.data.answer; // Corrected response format
       setChatLog([...newChatLog, { role: "assistant", content: botResponse }]);
