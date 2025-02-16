@@ -5,7 +5,8 @@
       "runtime": "vercel-python@0.5.0"
     }
   },
-  "build": {
-    "public": "public"
-  }
+  "routes": [
+    { "src": "/api/(.*)", "dest": "/api/index.py" },
+    { "src": "/(.*)", "dest": "/public/index.html" }
+  ]
 }
