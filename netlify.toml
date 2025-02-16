@@ -1,8 +1,7 @@
 [build]
-  base = "/"
-  publish = "build"
-  functions = "netlify/functions"  # This is where your FastAPI function resides
-
-[dev]
   functions = "netlify/functions"
-  port = 8888  # You can choose any available port for local dev
+
+[[redirects]]
+  from = "/*"
+  to = "/.netlify/functions/index"
+  status = 200

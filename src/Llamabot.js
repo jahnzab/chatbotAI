@@ -16,7 +16,7 @@ const Llamabot = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  // Speech Recognition Setup
+  // Speech Recognition Setup with Proper Check
   let recognition = null;
   if ("SpeechRecognition" in window || "webkitSpeechRecognition" in window) {
     const SpeechRecognition =
@@ -38,25 +38,20 @@ const Llamabot = () => {
   // Send message to FastAPI
   const handleSendMessage = async () => {
     if (!userInput.trim()) return;
-  
+
     const newChatLog = [...chatLog, { role: "user", content: userInput }];
     setChatLog(newChatLog);
     setUserInput("");
     setIsTyping(true);
-  
+
     try {
-      // Update this URL to point to the Netlify function (which serves your FastAPI code)
       const response = await axios.post(
-        "/.netlify/functions/chat/generate/",  // The URL for your Netlify function
+        "https://your-app.fly.dev/generate/", 
         { question: userInput },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
+        { headers: { "Content-Type": "application/json" } }
       );
-  
-      const botResponse = response.data.answer; // Correct response format
+      
+      const botResponse = response.data.answer; // Corrected response format
       setChatLog([...newChatLog, { role: "assistant", content: botResponse }]);
     } catch (error) {
       console.error("Error communicating with FastAPI:", error);
@@ -69,7 +64,6 @@ const Llamabot = () => {
       scrollToBottom();
     }
   };
-  
 
   // Handle Enter key press
   const handleKeyDown = (e) => {
@@ -89,6 +83,7 @@ const Llamabot = () => {
 
   return (
     <div style={{ display: "flex" }}>
+      {/* Left side container */}
       <div
         style={{
           width: "550px",
